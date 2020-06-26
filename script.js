@@ -17,7 +17,7 @@ function writePassword() {
 
 // Generates random password 
 function generatePassword() {
-  
+  return " "
 }
 
 // Creates and displays pwd choice section
@@ -48,16 +48,17 @@ function displayPasswordInputChoices() {
   welcomeDialogDiv.appendChild(welcomeDialogHeading);
   welcomeDialogDiv.appendChild(welcomeDialogBody);
 
-  displayCheckboxItem("cb1","Uppercase", welcomeDialogDiv);
-  displayCheckboxItem("cb2","Lowercase", welcomeDialogDiv);
-  displayCheckboxItem("cb3","Numbers", welcomeDialogDiv);
-  displayCheckboxItem("cb4","Special characters", welcomeDialogDiv);
- 
+  createAndDisplayCheckboxItem("cb1","Uppercase", welcomeDialogDiv);
+  createAndDisplayCheckboxItem("cb2","Lowercase", welcomeDialogDiv);
+  createAndDisplayCheckboxItem("cb3","Numbers", welcomeDialogDiv);
+  createAndDisplayCheckboxItem("cb4","Special characters", welcomeDialogDiv);
+  createAndDisplaySlider(welcomeDialogDiv);
+
   // Replace the textarea with welcome dialog 
   card.replaceChild(welcomeDialogDiv, textArea);
 }
 
-function displayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv){
+function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv){
   var checkbox = document.createElement('input');
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("value", " Uppercase letters");
@@ -71,6 +72,24 @@ function displayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv){
   welcomeDialogDiv.appendChild(checkbox);
   welcomeDialogDiv.appendChild(label);
   welcomeDialogDiv.appendChild(document.createElement("br"));
+}
 
-  return checkbox;
+function createAndDisplaySlider(welcomeDialogDiv){
+  var sliderElement = document.createElement("input");
+  sliderElement.setAttribute("type", "range");
+  sliderElement.setAttribute("class", "slider");
+  
+  sliderElement.setAttribute("min", "1");
+  sliderElement.setAttribute("max", "100");
+  sliderElement.setAttribute("value", "50");
+   
+  var pTag = document.createElement("p");
+ 
+  sliderElement.oninput = function(){
+  pTag.textContent = `Value: ${sliderElement.value}`
+  }
+ 
+  welcomeDialogDiv.appendChild(sliderElement);
+  welcomeDialogDiv.appendChild(pTag)
+  console.log(sliderElement.value);
 }
