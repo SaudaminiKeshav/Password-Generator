@@ -1,5 +1,11 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+var body = document.querySelector("body");
+
+// Add event listener to load pwd choice section 
+body.onload = displayPwdInputChoices();
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
 // Write password to the #password input
 function writePassword() {
@@ -7,19 +13,15 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
 
 // Generates random password 
 function generatePassword() {
-  customPromptGenerator()
-
+  
 }
 
-function customPromptGenerator() {
+// Creates and displays pwd choice section
+function displayPwdInputChoices() {
 
   // Get the div in which the dialog will be displayed 
   var card = document.querySelector(".card-body");
@@ -29,23 +31,23 @@ function customPromptGenerator() {
 
   // Create the elements to be displayed in the welcome dialog 
   var welcomeDialogDiv = document.createElement("div");
-  var welcomeDialogHeading = document.createElement("h4");
+  var welcomeDialogHeading = document.createElement("h5");
   var welcomeDialogBody = document.createElement("p");
 
   // Add classes to style dialog in bootstrap 
-  welcomeDialogDiv.setAttribute("class", "alert alert-success")
-  welcomeDialogDiv.setAttribute("role", "alert")
-  welcomeDialogHeading.setAttribute("class", "alert-heading")
+  welcomeDialogDiv.setAttribute("class", "alert");
+  welcomeDialogDiv.setAttribute("role", "alert");
+  welcomeDialogHeading.setAttribute("class", "alert-heading");
 
   // Add content to the dialog heading and body 
-  welcomeDialogHeading.textContent = "Welcome to Password Generator";
-  welcomeDialogBody.textContent = "Please click on \"Generate Password\" button for a new password! ";
-
+  welcomeDialogHeading.textContent = "Please choose from options below and click \"Generate Password\"!";
+  welcomeDialogBody.textContent = "Please select options below  ";
+  
   // Append the elements to the container 
   card.appendChild(welcomeDialogDiv);
   welcomeDialogDiv.appendChild(welcomeDialogHeading);
   welcomeDialogDiv.appendChild(welcomeDialogBody);
 
   // Replace the textarea with welcome dialog 
-  card.replaceChild(welcomeDialogDiv, textArea)
+  card.replaceChild(welcomeDialogDiv, textArea);
 }
