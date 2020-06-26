@@ -14,21 +14,38 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 // Generates random password 
-function generatePassword(){
+function generatePassword() {
   customPromptGenerator()
-  
+
 }
 
-function customPromptGenerator(){
+function customPromptGenerator() {
 
   // Get the div in which the dialog will be displayed 
   var card = document.querySelector(".card-body");
 
   // Get the textarea that has to be replaced with the welcome dialog
-    var textArea = document.querySelector("textarea");
+  var textArea = document.querySelector("textarea");
 
   // Create the elements to be displayed in the welcome dialog 
-    var welcomeDialogDiv = document.createElement("div");
-    var welcomeDialogHeading = document.createElement("h4");
-    var welcomeDialogBody = document.createElement("p");
+  var welcomeDialogDiv = document.createElement("div");
+  var welcomeDialogHeading = document.createElement("h4");
+  var welcomeDialogBody = document.createElement("p");
+
+  // Add classes to style dialog in bootstrap 
+  welcomeDialogDiv.setAttribute("class", "alert alert-success")
+  welcomeDialogDiv.setAttribute("role", "alert")
+  welcomeDialogHeading.setAttribute("class", "alert-heading")
+
+  // Add content to the dialog heading and body 
+  welcomeDialogHeading.textContent = "Welcome to Password Generator";
+  welcomeDialogBody.textContent = "Please click on \"Generate Password\" button for a new password! ";
+
+  // Append the elements to the container 
+  card.appendChild(welcomeDialogDiv);
+  welcomeDialogDiv.appendChild(welcomeDialogHeading);
+  welcomeDialogDiv.appendChild(welcomeDialogBody);
+
+  // Replace the textarea with welcome dialog 
+  card.replaceChild(welcomeDialogDiv, textArea)
 }
