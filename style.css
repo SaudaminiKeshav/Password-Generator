@@ -3,70 +3,92 @@
 *::after {
   box-sizing: border-box;
 }
-
+body{
+   background: rgb(255, 255, 255);
+}
 html,
 body,
 .wrapper {
   height: 100%;
   margin: 0;
   padding: 0;
+  left: 20px;
+  top: 20px;
 }
 
 body {
   font-family: sans-serif;
-  background-color: #f9fbfd;
 }
 
+h2{
+  color: greenyellow;
+}
 .wrapper {
-  padding-top: 30px;
+  padding-top: 150px;
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 10px;
 }
 
 header {
   text-align: center;
   padding: 10px;
   padding-top: 0px;
-  color: hsl(206, 17%, 28%);
+  color: greenyellow;
 }
 
+div.card-header{
+  background-color: black;
+  background: black;
+}
+div.card-footer{
+  background-color: black;
+  background: black;
+}
 .card {
-  background-color: hsl(0, 0%, 100%);
   border-radius: 5px;
   border-width: 1px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
-  color: hsl(206, 17%, 28%);
+  background: rgb(255, 255, 255);
+  color: rgb(123, 255, 47);
   font-size: 18px;
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 20px 30px;
+  margin: 0 auto ;
+  max-width: 600px;
 }
 
+.card-header{
+  background-color: rgb(255, 255, 255);
+}
 .card-header::after {
   content: " ";
   display: block;
   width: 100%;
-  background: #e7e9eb;
+  /* background: #e7e9eb; */
   height: 2px;
+  background-color: rgb(255, 255, 255);
 }
 
 .card-body {
   min-height: 150px;
+  background: rgb(255, 255, 255);
+  background-color: black;
 }
 
 .card-footer {
   text-align: center;
+  background: rgb(255, 255, 255);
 }
 
 .card-footer::before {
+  background: rgb(255, 255, 255);
   content: " ";
   display: block;
   width: 100%;
-  background: #e7e9eb;
+  /* background: #e7e9eb; */
   height: 2px;
 }
 
 .card-footer::after {
+  background: rgb(255, 255, 255);
   content: " ";
   display: block;
   clear: both;
@@ -90,7 +112,7 @@ header {
 
 button[disabled] {
   cursor: default;
-  background: #c0c7cf;
+  /* background: #c0c7cf; */
 }
 
 .float-right {
@@ -113,7 +135,7 @@ button[disabled] {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  border: 2px dashed #c0c7cf;
+  /* border: 2px dashed #c0c7cf; */
   border-radius: 6px;
   resize: none;
   overflow: hidden;
@@ -142,7 +164,7 @@ button[disabled] {
     background-color: #AF0808;
     border-radius: 10px;
     width: 200px;
-    height:10px;
+    height:7px;
 }
 
 .slider::-webkit-slider-thumb {
