@@ -1,4 +1,4 @@
-// Assignment Code
+// Region Variable assignment
 var generateBtn = document.querySelector("#generate");
 var body = document.querySelector("body");
 var pwdUserInput = [];
@@ -8,22 +8,24 @@ var numbers = ['0123456789'];
 var specialChars = ['\!\#\$\%\&\(\)\*\+\-\.\:\;\=\?\@\[\]\^\_\{\|\}'];
 var pwdSliderRange = 64;
 var result = "";
+// EndRegion 
 
-// Get the div in which the dialog will be displayed 
+// Region Event listener
+generateBtn.addEventListener("click", writePassword);
+
+//Region HTML element creation
 var card = document.querySelector(".card-body");
-
-// Get the textarea that has to be replaced with the welcome dialog
+var cardDiv = document.querySelector(".card");
+var cardFooter = document.querySelector(".card-footer");
 var textArea = document.querySelector("#password");
 
 // Create the elements to be displayed in the welcome dialog 
 var welcomeDialogDiv = document.createElement("div");
 var welcomeDialogHeading = document.createElement("h5");
 var welcomeDialogBody = document.createElement("p");
+// End region 
 
-// Add event listener to load pwd choice section 
-body.onload = displayPasswordInputChoices();
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+loadPasswordInputArea();
 
 // Write password to the #password input
 function writePassword() {
@@ -31,8 +33,39 @@ function writePassword() {
   if (result != "") {
     console.log("Not empty");
     card.replaceChild(textArea, welcomeDialogDiv);
+    var newFooter = footerDisplayLogic();
+    cardDiv.replaceChild(newFooter, cardFooter);
     textArea.value = result;
   }
+}
+
+// Region to Create a div with a back button and a copy button
+function footerDisplayLogic() {
+  var footerDiv = document.createElement("div");
+  var backButton = document.createElement("button");
+  backButton.setAttribute("value", "Back");
+  backButton.setAttribute("class", "btn");
+  backButton.addEventListener('click', function () {
+    card.replaceChild(welcomeDialogDiv,textArea);
+    cardDiv.replaceChild(cardFooter, footerDiv);
+  })
+  footerDiv.appendChild(backButton);
+
+  var copyButton = document.createElement("button");
+  copyButton.setAttribute("name", "Copy Password");
+  backButton.setAttribute("class", "btn");
+  copyButton.addEventListener('click', function () {
+    textArea.select();
+    document.execCommand("copy");
+  })
+  footerDiv.appendChild(copyButton);
+  cardDiv.appendChild(footerDiv);
+  return footerDiv;
+}
+// End region 
+
+function loadPasswordInputArea() {
+  displayPasswordInputChoices();
 }
 
 // Creates and displays pwd choice section
@@ -47,11 +80,9 @@ function displayPasswordInputChoices() {
   welcomeDialogHeading.textContent = "Please choose from options below and click \"Generate Password\"!";
   welcomeDialogBody.textContent = "Please select options below  ";
 
-  // Append the elements to the container 
-  card.appendChild(welcomeDialogDiv);
   welcomeDialogDiv.appendChild(welcomeDialogHeading);
   welcomeDialogDiv.appendChild(welcomeDialogBody);
-
+  
   createAndDisplayCheckboxItem("UppercaseCB", "Uppercase", welcomeDialogDiv);
   createAndDisplayCheckboxItem("LowercaseCB", "Lowercase", welcomeDialogDiv);
   createAndDisplayCheckboxItem("NumbersCB", "Numbers", welcomeDialogDiv);
@@ -59,9 +90,11 @@ function displayPasswordInputChoices() {
   createAndDisplaySlider(welcomeDialogDiv);
 
   // Replace the textarea with welcome dialog 
-  card.replaceChild(welcomeDialogDiv, textArea);
+    card.replaceChild(welcomeDialogDiv, textArea);
+  
 }
 
+// Region create and display check box items 
 function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv) {
   var checkbox = document.createElement('input');
   checkbox.setAttribute("type", "checkbox");
@@ -85,7 +118,9 @@ function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv
   welcomeDialogDiv.appendChild(label);
   welcomeDialogDiv.appendChild(document.createElement("br"));
 }
+// End region 
 
+// Region create and display slider 
 function createAndDisplaySlider(welcomeDialogDiv) {
   var sliderElement = document.createElement("input");
   sliderElement.setAttribute("type", "range");
@@ -107,6 +142,7 @@ function createAndDisplaySlider(welcomeDialogDiv) {
 
   console.log(sliderElement.value);
 }
+// End region 
 
 // Generates random password 
 function generatePassword() {
