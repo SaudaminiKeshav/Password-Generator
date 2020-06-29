@@ -113,6 +113,11 @@ function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv
       console.log(`${checkbox.id} checked`)
       console.log(`${pwdUserInput} `)
     }
+    if(this.checked == false){
+      pwdUserInput.pop(checkbox.id)
+      console.log(`${checkbox.id} un-checked`)
+      console.log(`${pwdUserInput} `)
+    }
   });
 
   var label = document.createElement("label");
@@ -187,5 +192,6 @@ function clearInputPreSelections(){
   document.getElementById("NumbersCB").checked = false;
   document.getElementById("SpecialCharactersCB").checked = false;
   document.getElementById("sliderElement").value = "64";
+  pwdSliderRange = 64;
   pTag.textContent = "";
 }
