@@ -23,6 +23,9 @@ var textArea = document.querySelector("#password");
 var welcomeDialogDiv = document.createElement("div");
 var welcomeDialogHeading = document.createElement("h5");
 var welcomeDialogBody = document.createElement("p");
+
+// p tag for label of slider 
+var pTag = document.createElement("p");
 // End region 
 
 loadPasswordInputArea();
@@ -32,6 +35,7 @@ function writePassword() {
   generatePassword();
   if (result != "") {
     console.log("Not empty");
+    clearInputPreSelections();
     card.replaceChild(textArea, welcomeDialogDiv);
     var newFooter = footerDisplayLogic();
     cardDiv.replaceChild(newFooter, cardFooter);
@@ -46,6 +50,8 @@ function footerDisplayLogic() {
   backButton.setAttribute("value", "Back");
   backButton.setAttribute("class", "btn");
   backButton.addEventListener('click', function () {
+    pwdUserInput = [];
+    result = "";
     card.replaceChild(welcomeDialogDiv,textArea);
     cardDiv.replaceChild(cardFooter, footerDiv);
   })
@@ -117,6 +123,7 @@ function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv
   welcomeDialogDiv.appendChild(checkbox);
   welcomeDialogDiv.appendChild(label);
   welcomeDialogDiv.appendChild(document.createElement("br"));
+  return checkbox;
 }
 // End region 
 
@@ -125,15 +132,14 @@ function createAndDisplaySlider(welcomeDialogDiv) {
   var sliderElement = document.createElement("input");
   sliderElement.setAttribute("type", "range");
   sliderElement.setAttribute("class", "slider");
-
+  sliderElement.setAttribute("id", "sliderElement");
   sliderElement.setAttribute("min", "8");
   sliderElement.setAttribute("max", "128");
   sliderElement.setAttribute("value", "64");
 
-  var pTag = document.createElement("p");
-
   sliderElement.oninput = function () {
-    pTag.textContent = `Value: ${sliderElement.value} `
+    pTag.setAttribute("id", "sliderLabel");
+    pTag.textContent = `Value: ${sliderElement.value} `;
     pwdSliderRange = sliderElement.value;
   }
 
@@ -173,4 +179,13 @@ function generatePassword() {
 
 function displayPromptIfNoInput() {
   window.alert("Please select an option below to create password")
+}
+
+function clearInputPreSelections(){
+  document.getElementById("UppercaseCB").checked = false;
+  document.getElementById("LowercaseCB").checked = false;
+  document.getElementById("NumbersCB").checked = false;
+  document.getElementById("SpecialCharactersCB").checked = false;
+  document.getElementById("sliderElement").value = "64";
+  pTag.textContent = "";
 }
