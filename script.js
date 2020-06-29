@@ -1,6 +1,22 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 var body = document.querySelector("body");
+var pwdUserInput = [];
+var upperCaseChars = ['ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+var lowerCaseChars = ['abcdefghijklmnopqrstuvwxyz'];
+var numbers = ['0123456789'];
+var specialChars = ['\!\#\$\%\&\(\)\*\+\-\.\:\;\=\?\@\[\]\^\_\{\|\}'];
+
+ // Get the div in which the dialog will be displayed 
+ var card = document.querySelector(".card-body");
+
+   // Get the textarea that has to be replaced with the welcome dialog
+   var textArea = document.querySelector("#password");
+
+    // Create the elements to be displayed in the welcome dialog 
+  var welcomeDialogDiv = document.createElement("div");
+  var welcomeDialogHeading = document.createElement("h5");
+  var welcomeDialogBody = document.createElement("p");
 
 // Add event listener to load pwd choice section 
 body.onload = displayPasswordInputChoices();
@@ -10,29 +26,13 @@ generateBtn.addEventListener("click", writePassword);
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
-}
-
-// Generates random password 
-function generatePassword() {
-  return " "
+  card.replaceChild(textArea, welcomeDialogDiv);
+  textArea.value = password;
 }
 
 // Creates and displays pwd choice section
 function displayPasswordInputChoices() {
-
-  // Get the div in which the dialog will be displayed 
-  var card = document.querySelector(".card-body");
-
-  // Get the textarea that has to be replaced with the welcome dialog
-  var textArea = document.querySelector("textarea");
-
-  // Create the elements to be displayed in the welcome dialog 
-  var welcomeDialogDiv = document.createElement("div");
-  var welcomeDialogHeading = document.createElement("h5");
-  var welcomeDialogBody = document.createElement("p");
 
   // Add classes to style dialog in bootstrap 
   welcomeDialogDiv.setAttribute("class", "alert");
@@ -48,10 +48,10 @@ function displayPasswordInputChoices() {
   welcomeDialogDiv.appendChild(welcomeDialogHeading);
   welcomeDialogDiv.appendChild(welcomeDialogBody);
 
-  createAndDisplayCheckboxItem("cb1", "Uppercase", welcomeDialogDiv);
-  createAndDisplayCheckboxItem("cb2", "Lowercase", welcomeDialogDiv);
-  createAndDisplayCheckboxItem("cb3", "Numbers", welcomeDialogDiv);
-  createAndDisplayCheckboxItem("cb4", "Special characters", welcomeDialogDiv);
+  createAndDisplayCheckboxItem("UppercaseCB", "Uppercase", welcomeDialogDiv);
+  createAndDisplayCheckboxItem("LowercaseCB", "Lowercase", welcomeDialogDiv);
+  createAndDisplayCheckboxItem("NumbersCB", "Numbers", welcomeDialogDiv);
+  createAndDisplayCheckboxItem("SpecialCharactersCB", "Special characters", welcomeDialogDiv);
   createAndDisplaySlider(welcomeDialogDiv);
 
   // Replace the textarea with welcome dialog 
@@ -61,8 +61,16 @@ function displayPasswordInputChoices() {
 function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv) {
   var checkbox = document.createElement('input');
   checkbox.setAttribute("type", "checkbox");
-  checkbox.setAttribute("value", " Uppercase letters");
+  checkbox.setAttribute("name", "checkbox");
   checkbox.id = checkboxID;
+
+  checkbox.addEventListener('change', function () {
+    if (this.checked) {
+      pwdUserInput.push(checkbox.id)
+      console.log(`${checkbox.id} checked`)
+      console.log(`${pwdUserInput} `)
+    }
+  });
 
   var label = document.createElement("label");
   var textNode = document.createTextNode(checkboxText);
@@ -79,18 +87,44 @@ function createAndDisplaySlider(welcomeDialogDiv) {
   sliderElement.setAttribute("type", "range");
   sliderElement.setAttribute("class", "slider");
 
-  sliderElement.setAttribute("min", "1");
-  sliderElement.setAttribute("max", "100");
-  sliderElement.setAttribute("value", "50");
+  sliderElement.setAttribute("min", "8");
+  sliderElement.setAttribute("max", "128");
+  sliderElement.setAttribute("value", "64");
 
   var pTag = document.createElement("p");
 
   sliderElement.oninput = function () {
-    pTag.textContent = `Value: ${sliderElement.value}`
+    pTag.textContent = `Value: ${sliderElement.value} `
   }
 
   welcomeDialogDiv.appendChild(pTag);
   welcomeDialogDiv.appendChild(sliderElement);
 
   console.log(sliderElement.value);
+}
+
+// Generates random password 
+function generatePassword() {
+  var pwd = [];
+  if (pwdUserInput.includes("UppercaseCB")) {
+    pwd = pwd + upperCaseChars;
+  }
+  if (pwdUserInput.includes("LowercaseCB")) {
+    pwd = pwd + lowerCaseChars;
+  }
+  if (pwdUserInput.includes("NumbersCB")) {
+    pwd = pwd + numbers;
+  }
+  if (pwdUserInput.includes("SpecialCharactersCB")) {
+    pwd = pwd + specialChars;
+  }
+  
+  var result = "";
+  while(result.length < 128){
+    result += pwd[Math.floor(Math.random() * pwd.length)];
+  }
+  console.log(`Password -> ${result}`);
+
+  return result;
+  //  Math.floor(Math.random() * 10) + 1
 }
