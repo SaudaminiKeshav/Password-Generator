@@ -6,17 +6,19 @@ var upperCaseChars = ['ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 var lowerCaseChars = ['abcdefghijklmnopqrstuvwxyz'];
 var numbers = ['0123456789'];
 var specialChars = ['\!\#\$\%\&\(\)\*\+\-\.\:\;\=\?\@\[\]\^\_\{\|\}'];
+var pwdSliderRange = 64;
+var result = "";
 
- // Get the div in which the dialog will be displayed 
- var card = document.querySelector(".card-body");
+// Get the div in which the dialog will be displayed 
+var card = document.querySelector(".card-body");
 
-   // Get the textarea that has to be replaced with the welcome dialog
-   var textArea = document.querySelector("#password");
+// Get the textarea that has to be replaced with the welcome dialog
+var textArea = document.querySelector("#password");
 
-    // Create the elements to be displayed in the welcome dialog 
-  var welcomeDialogDiv = document.createElement("div");
-  var welcomeDialogHeading = document.createElement("h5");
-  var welcomeDialogBody = document.createElement("p");
+// Create the elements to be displayed in the welcome dialog 
+var welcomeDialogDiv = document.createElement("div");
+var welcomeDialogHeading = document.createElement("h5");
+var welcomeDialogBody = document.createElement("p");
 
 // Add event listener to load pwd choice section 
 body.onload = displayPasswordInputChoices();
@@ -25,10 +27,12 @@ generateBtn.addEventListener("click", writePassword);
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-
-  card.replaceChild(textArea, welcomeDialogDiv);
-  textArea.value = password;
+  generatePassword();
+  if (result != "") {
+    console.log("Not empty");
+    card.replaceChild(textArea, welcomeDialogDiv);
+    textArea.value = result;
+  }
 }
 
 // Creates and displays pwd choice section
@@ -95,6 +99,7 @@ function createAndDisplaySlider(welcomeDialogDiv) {
 
   sliderElement.oninput = function () {
     pTag.textContent = `Value: ${sliderElement.value} `
+    pwdSliderRange = sliderElement.value;
   }
 
   welcomeDialogDiv.appendChild(pTag);
@@ -106,25 +111,30 @@ function createAndDisplaySlider(welcomeDialogDiv) {
 // Generates random password 
 function generatePassword() {
   var pwd = [];
-  if (pwdUserInput.includes("UppercaseCB")) {
-    pwd = pwd + upperCaseChars;
-  }
-  if (pwdUserInput.includes("LowercaseCB")) {
-    pwd = pwd + lowerCaseChars;
-  }
-  if (pwdUserInput.includes("NumbersCB")) {
-    pwd = pwd + numbers;
-  }
-  if (pwdUserInput.includes("SpecialCharactersCB")) {
-    pwd = pwd + specialChars;
-  }
-  
-  var result = "";
-  while(result.length < 128){
-    result += pwd[Math.floor(Math.random() * pwd.length)];
-  }
-  console.log(`Password -> ${result}`);
 
-  return result;
-  //  Math.floor(Math.random() * 10) + 1
+  if (pwdUserInput === undefined || pwdUserInput.length == 0) {
+    displayPromptIfNoInput();
+  } else {
+    if (pwdUserInput.includes("UppercaseCB")) {
+      pwd = pwd + upperCaseChars;
+    }
+    if (pwdUserInput.includes("LowercaseCB")) {
+      pwd = pwd + lowerCaseChars;
+    }
+    if (pwdUserInput.includes("NumbersCB")) {
+      pwd = pwd + numbers;
+    }
+    if (pwdUserInput.includes("SpecialCharactersCB")) {
+      pwd = pwd + specialChars;
+    }
+
+    while (result.length < pwdSliderRange) {
+      result += pwd[Math.floor(Math.random() * pwd.length)];
+    }
+    console.log(`Password -> ${result}`);
+  }
+}
+
+function displayPromptIfNoInput() {
+  window.alert("Please select an option below to create password")
 }
