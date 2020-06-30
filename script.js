@@ -53,7 +53,7 @@ function writePassword() {
   }
 }
 
-// Region to Create a div with a back button and a copy button
+// Region to Create a div with a back and a copy button
 function footerDisplayLogic() {
   backButton.setAttribute("class", "footerbtn");
   backButton.value = "Back";
@@ -63,7 +63,7 @@ function footerDisplayLogic() {
   backButton.addEventListener('click', function () {
     pwdUserInput = [];
     result = "";
-    card.replaceChild(welcomeDialogDiv,textArea);
+    card.replaceChild(welcomeDialogDiv, textArea);
     cardFooter.replaceChild(generateBtn, backButton);
     cardFooter.removeChild(copyButton);
   })
@@ -84,7 +84,7 @@ function loadPasswordInputArea() {
   displayPasswordInputChoices();
 }
 
-// Creates and displays pwd choice section
+// Region creates and displays pwd choice section
 function displayPasswordInputChoices() {
 
   // Add classes to style dialog in bootstrap 
@@ -107,8 +107,8 @@ function displayPasswordInputChoices() {
 
   // Replace the textarea with welcome dialog 
   card.replaceChild(welcomeDialogDiv, textArea);
-
 }
+// End region 
 
 // Region create and display check box items 
 function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv) {
@@ -119,14 +119,14 @@ function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv
 
   checkbox.addEventListener('change', function () {
     if (this.checked) {
-      pwdUserInput.push(checkbox.id)
-      console.log(`${checkbox.id} checked`)
-      console.log(`${pwdUserInput} `)
+      pwdUserInput.push(checkbox.id);
+      console.log(`${checkbox.id} checked`);
+      console.log(`${pwdUserInput} `);
     }
     if (this.checked == false) {
-      pwdUserInput.pop(checkbox.id)
-      console.log(`${checkbox.id} un-checked`)
-      console.log(`${pwdUserInput} `)
+      pwdUserInput.pop(checkbox.id);
+      console.log(`${checkbox.id} un-checked`);
+      console.log(`${pwdUserInput} `);
     }
   });
 
@@ -165,7 +165,7 @@ function createAndDisplaySlider(welcomeDialogDiv) {
 }
 // End region 
 
-// Generates random password 
+// Region generate random password 
 function generatePassword() {
   var pwd = [];
 
@@ -191,11 +191,15 @@ function generatePassword() {
     console.log(`Password -> ${result}`);
   }
 }
+// End region 
 
+// Region no input prompt 
 function displayPromptIfNoInput() {
-  window.alert("Please select an option below to create password")
+  window.alert("Please select an option below to create password");
 }
+// End region 
 
+// Region reset checkboxes, slider, and slider text on clicking back button  
 function clearInputPreSelections() {
   document.getElementById("UppercaseCB").checked = false;
   document.getElementById("LowercaseCB").checked = false;
@@ -205,3 +209,4 @@ function clearInputPreSelections() {
   pwdSliderRange = 64;
   pTag.textContent = "";
 }
+// End region
