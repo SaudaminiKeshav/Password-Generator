@@ -8,6 +8,7 @@ var numbers = ['0123456789'];
 var specialChars = ['\!\#\$\%\&\(\)\*\+\-\.\:\;\=\?\@\[\]\^\_\{\|\}'];
 var pwdSliderRange = 64;
 var result = "";
+var buttonStyle = document.getElementById("generate").style.cssText;
 // EndRegion 
 
 // Region Event listener
@@ -26,6 +27,14 @@ var welcomeDialogBody = document.createElement("p");
 
 // p tag for label of slider 
 var pTag = document.createElement("p");
+
+// New footer buttons 
+var backButton = document.createElement("button");
+backButton.setAttribute("id", "backBotton");
+
+var copyButton = document.createElement("button");
+copyButton.setAttribute("id", "copyButton");
+
 // End region 
 
 loadPasswordInputArea();
@@ -37,36 +46,37 @@ function writePassword() {
     console.log("Not empty");
     clearInputPreSelections();
     card.replaceChild(textArea, welcomeDialogDiv);
-    var newFooter = footerDisplayLogic();
-    cardDiv.replaceChild(newFooter, cardFooter);
+    footerDisplayLogic();
+    cardFooter.replaceChild(backButton, generateBtn);
+    cardFooter.appendChild(copyButton);
     textArea.value = result;
   }
 }
 
 // Region to Create a div with a back button and a copy button
 function footerDisplayLogic() {
-  var footerDiv = document.createElement("div");
-  var backButton = document.createElement("button");
-  backButton.setAttribute("value", "Back");
-  backButton.setAttribute("class", "btn");
+  backButton.setAttribute("class", "footerbtn");
+  backButton.value = "Back";
+  backButton.textContent = "Back";
+
+  backButton.style.cssText = buttonStyle;
   backButton.addEventListener('click', function () {
     pwdUserInput = [];
     result = "";
     card.replaceChild(welcomeDialogDiv,textArea);
-    cardDiv.replaceChild(cardFooter, footerDiv);
+    cardFooter.replaceChild(generateBtn, backButton);
+    cardFooter.removeChild(copyButton);
   })
-  footerDiv.appendChild(backButton);
 
-  var copyButton = document.createElement("button");
   copyButton.setAttribute("name", "Copy Password");
-  backButton.setAttribute("class", "btn");
+  copyButton.setAttribute("class", "footerbtn");
+  copyButton.value = "Copy Password";
+  copyButton.textContent = "Copy";
+  copyButton.style.cssText = buttonStyle;
   copyButton.addEventListener('click', function () {
     textArea.select();
     document.execCommand("copy");
   })
-  footerDiv.appendChild(copyButton);
-  cardDiv.appendChild(footerDiv);
-  return footerDiv;
 }
 // End region 
 
@@ -84,11 +94,11 @@ function displayPasswordInputChoices() {
 
   // Add content to the dialog heading and body 
   welcomeDialogHeading.textContent = "Please choose from options below and click \"Generate Password\"!";
-  welcomeDialogBody.textContent = "Please select options below  ";
+
 
   welcomeDialogDiv.appendChild(welcomeDialogHeading);
   welcomeDialogDiv.appendChild(welcomeDialogBody);
-  
+
   createAndDisplayCheckboxItem("UppercaseCB", "Uppercase", welcomeDialogDiv);
   createAndDisplayCheckboxItem("LowercaseCB", "Lowercase", welcomeDialogDiv);
   createAndDisplayCheckboxItem("NumbersCB", "Numbers", welcomeDialogDiv);
@@ -96,8 +106,8 @@ function displayPasswordInputChoices() {
   createAndDisplaySlider(welcomeDialogDiv);
 
   // Replace the textarea with welcome dialog 
-    card.replaceChild(welcomeDialogDiv, textArea);
-  
+  card.replaceChild(welcomeDialogDiv, textArea);
+
 }
 
 // Region create and display check box items 
@@ -113,7 +123,7 @@ function createAndDisplayCheckboxItem(checkboxID, checkboxText, welcomeDialogDiv
       console.log(`${checkbox.id} checked`)
       console.log(`${pwdUserInput} `)
     }
-    if(this.checked == false){
+    if (this.checked == false) {
       pwdUserInput.pop(checkbox.id)
       console.log(`${checkbox.id} un-checked`)
       console.log(`${pwdUserInput} `)
@@ -186,7 +196,7 @@ function displayPromptIfNoInput() {
   window.alert("Please select an option below to create password")
 }
 
-function clearInputPreSelections(){
+function clearInputPreSelections() {
   document.getElementById("UppercaseCB").checked = false;
   document.getElementById("LowercaseCB").checked = false;
   document.getElementById("NumbersCB").checked = false;
