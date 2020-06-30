@@ -35,8 +35,6 @@ THEN the password is either displayed in an alert or written to the page
 ## The following images demonstrates the application functionality on Web and Mobile:
 
 * Without user input
-
-<img src="Assets/Untitled.png" height="300">
 ![](Assets/Untitled.png)
 ![](Assets/image1.png)
 
