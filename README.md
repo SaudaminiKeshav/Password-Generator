@@ -32,9 +32,25 @@ WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
 
-The following image demonstrates the application functionality:
+## The following images demonstrates the application functionality on Web and Mobile:
 
+* Without user input
+
+<img src="Assets/Untitled.png" width="300" height="300">
 ![](Assets/Untitled.png)
+![](Assets/image1.png)
+
+* No input prompt
+
+![](Assets/NoInputPrompt-Web.png)
+
+* With user input
+
+![](Assets/WithInput-Web.png)
+
+* Password generated as per user input
+
+![](Assets/PwdResult-Web.png)
 
 ## Review
 
