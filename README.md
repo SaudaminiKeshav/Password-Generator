@@ -36,7 +36,7 @@ THEN the password is either displayed in an alert or written to the page
 
 * Without user input
 
-<img src="Assets/Untitled.png" width="300" height="300">
+<img src="Assets/Untitled.png" height="300">
 ![](Assets/Untitled.png)
 ![](Assets/image1.png)
 
