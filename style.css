@@ -34,7 +34,7 @@ header {
   text-align: center;
   padding: 10px;
   padding-top: 0px;
-  color: greenyellow;
+  color: #adff2f;
 }
 
 div.card-header{
@@ -97,7 +97,7 @@ div.card-footer{
 
 .btn {
   border: none;
-  background-color: hsl(360, 91%, 36%);
+  background-color: #af0808;
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
     0px;

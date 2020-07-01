@@ -154,7 +154,7 @@ function createAndDisplaySlider(welcomeDialogDiv) {
 
   sliderElement.oninput = function () {
     pTag.setAttribute("id", "sliderLabel");
-    pTag.textContent = `Value: ${sliderElement.value} `;
+    pTag.textContent = `Range: ${sliderElement.value} `;
     pwdSliderRange = sliderElement.value;
   }
 
